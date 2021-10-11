@@ -17,6 +17,7 @@ from surprise.model_selection import KFold
 from keras.layers import  Input, concatenate
 from keras.models import Model
 from keras.layers import Dense, Dropout, Embedding, Flatten
+from bson.objectid import ObjectId
 
 from difflib import SequenceMatcher
 
@@ -50,7 +51,9 @@ def get_tmdb_recommendations(count_matrix, data_tm, title):
     given_id = get_ml_movie_with_title(data_tm, title)
     cosine_sim = cosine_similarity(count_matrix, count_matrix)
     data_tm = data_tm.reset_index()
-    all_similar = list(enumerate(cosine_sim[given_id]))
+    given_index = data_tm.index[data_tm['movie_id'] == given_id].tolist()[0]
+
+    all_similar = list(enumerate(cosine_sim[given_index]))
     all_similar = sorted(all_similar , key = lambda x: x[1] , reverse = True)
     most_similar = [movie for movie in all_similar if movie[1] > 0][1:11]
     return data_tm['movie_title'].iloc[[i[0] for i in most_similar]]
@@ -108,7 +111,7 @@ def read_movielens_dataset():
     db = client.cinemadb
 
     user_objects = [i for i in db.users.find()]
-    users_db = pd.DataFrame([{'user_id': i['rownum'] + len(users), 'age': 25, 'gender': 'M', 'occupation': 'occupation', 'zip_code': '21000'} for i in user_objects])
+    users_db = pd.DataFrame([{'user_id': i['rownum'] + len(users), 'age': 25, 'gender': 'M', 'occupation': 'occupation', 'zip_code': '21000'} for i in user_objects if db.reviews.find({'user_id': ObjectId(i['_id'])}).count() > 0])
     ratings_db = pd.DataFrame([{'user_id': list(filter(lambda u: u['_id'] == i['user_id'], user_objects))[0]['rownum'] + len(users), 'movie_id': int(i['movie_id']), 'rating': 5, 'timestamp': 0} for i in db.reviews.find()])
     
     all_users = pd.concat([users, users_db])

@@ -54,7 +54,6 @@ def get_recommendations():
         values = get_keras_recommendations(model, data_train_x, rownum+num_of_users)
         keras_similar = [value for index, value in enumerate(values) if value not in values[ : index]][:20]
         keras_similar = [movies[movies['movie_id'] == e]['movie_title'].to_numpy()[0] for e in keras_similar]
-
         return {'content_similar': content_similar, 'surprise_similar': surprise_similar, 'keras_similar': keras_similar}
 
 @app.route('/user', methods=['POST'])

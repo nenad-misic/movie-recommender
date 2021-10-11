@@ -49,7 +49,7 @@ Using the *similarity matrix* we can compute similar movies to any give one. Thi
 
 For the movie overview, as it consists of larger, not structured portion of text, TFIDF is used. That way we can calculate *cosine similarity* on vectors.
 
-Implementation can be seen in [this file](./Content Based - Credits, Genres and Keywords.ipynb)
+Implementation can be seen in [this file](Content%20Based%20-%20Credits,%20Genres%20and%20Keywords.ipynb)
 
 
 ## Collaborative filtering approach - surprise
@@ -68,7 +68,7 @@ After testing out various algorithms on *MovieLens* dataset, results are present
 
 Looking at the results, SVD gives the best results, but is also the slowest one for training.
 
-Implementation can be seen in [this file](./Collaborative filtering - surprise.ipynb)
+Implementation can be seen in [this file](Collaborative%20filtering%20-%20surprise.ipynb)
 
 ## Collaborative filtering approach - fastai 
 
@@ -79,7 +79,7 @@ Training it out on the same dataset, it resulted in a bit worse results in compa
 
 The reason behind this is, probably, insuficient data for such a deep model. If we were using 25M version of dataset, results would definitely be more accurate.
 
-Implementation can be seen in [this file](./Collaborative filtering - fastai.ipynb)
+Implementation can be seen in [this file](Collaborative%20filtering%20-%20fastai.ipynb)
 
 ## Collaborative filtering approach - keras
 
@@ -122,7 +122,7 @@ ________________________________________________________________________________
 After 20 epochs of training, loss on test data has come down to 0.863, which is a tiny bit better than *fastai* approach.
 The issue is same, insufficient data. If we worked with 25M dataset version, results would definitely be better, but so would training time grow.
 
-Implementation can be seen in [this file](./Collaborative filtering - Keras.ipynb)
+Implementation can be seen in [this file](Collaborative%20filtering%20-%20Keras.ipynb)
 
 ## Models summary
 
